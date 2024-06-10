@@ -29,44 +29,32 @@ namespace FInalProject_PDI
     /// Lógica de interacción para MainWindow.xaml
     /// </summary>
     public delegate BitmapImage MyCurrentFilter(Bitmap img);
+
     public partial class MainWindow : Window
     {
         string conta = "";
+
         FilterInfoCollection cams;
-
         VideoCaptureDevice currentCam;
-
-
         BitmapImage currentImg;
-
 
         string gesture = "";
 
         MyCurrentFilter MyFilt;
-
-
         Bitmap fileToChange;
-
-
-
 
         bool takeImages = false;
 
         int nImages = 0;
 
         System.Windows.Visibility visible = System.Windows.Visibility.Collapsed;
-
-
-
         Gestures GESTURE = Gestures.NOTHING;
 
         int nroIm = 0;
-
-
+        bool stopProcessing = false;
 
         public MainWindow()
         {
-
             InitializeComponent();
             cams = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             foreach (FilterInfo VideoCaptureDevice in cams)
@@ -79,63 +67,17 @@ namespace FInalProject_PDI
 
             }
             Loaded += MainWindow_Loaded;
-
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
 
-            /*
-            _graph = new Graph();
-            _graph.Import(File.ReadAllBytes("E:/1-2024/PDI/hand_gesture_model.pb"));
-            _session = new Session(_graph);*/
-
-            //_graph = new TFGraph();
-            //var modelBuffer = File.ReadAllBytes("E:/1-2024/PDI/saved_model.pb");
-            //MessageBox.Show("Llego");
-            ////     graph.Import(modelBuffer);
-
-
-            //_graph.Import(modelBuffer);
-            //_session = new TFSession(_graph);
-
-            //string baseRoute = "E:/1-2024/PDI/GESTOS/";
-            //for (int i = 30; i <= 32; i++)
-            //{
-            //    Bitmap openimg = new Bitmap(baseRoute + $"OpenHand/{i}.jpg");
-            //    Bitmap normalImg = new Bitmap(baseRoute + $"Normal/{i}.jpg");
-            //    Bitmap closeImg = new Bitmap(baseRoute + $"CloseHand/{i}.jpg");
-            //    Bitmap f1img = new Bitmap(baseRoute + $"1Finger/{i}.jpg");
-            //    Bitmap f2img = new Bitmap(baseRoute + $"2Finger/{i}.jpg");
-            //    Bitmap f3img = new Bitmap(baseRoute + $"3Finger/{i}.jpg");
-            //    Bitmap f4img = new Bitmap(baseRoute + $"4Finger/{i}.jpg");
-
-
-
-            //    NormalImages.Add(normalImg);
-
-            //    Open.Add(openimg);
-            //    Close.Add(closeImg);
-            //    F1.Add(f1img);
-            //    F2.Add(f2img);
-            //    F3.Add(f3img);
-            //    F4.Add(f4img);
-
-
-
-            //}
-
-
         }
-
 
         private void cmbCameras_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
-
-
-
 
         public static BitmapImage ToBitmapImage(System.Drawing.Image bitmap)
         {
@@ -155,8 +97,6 @@ namespace FInalProject_PDI
             }
         }
 
-
-
         public static Bitmap BitmapImage2Bitmap(BitmapImage img)
         {
             using (var memory = new MemoryStream())
@@ -174,9 +114,6 @@ namespace FInalProject_PDI
 
         private void btnStart_Click(object sender, RoutedEventArgs e)
         {
-
-
-            //SetNewFilter(cmbFilters.Text);
             if (currentCam != null)
             {
                 currentCam.Stop();
@@ -185,26 +122,16 @@ namespace FInalProject_PDI
             currentCam = new VideoCaptureDevice(cams[cmbCameras.SelectedIndex].MonikerString);
             currentCam.NewFrame += new NewFrameEventHandler(MyNewFrame);
 
-
             currentCam.VideoResolution = currentCam.VideoCapabilities[5];
             currentCam.Start();
 
-
             takeImages = true;
-
         }
-
-
-
-
-
 
         void MyNewFrame(object sender, NewFrameEventArgs eventArgs)
         {
-
             Bitmap myaux = (Bitmap)eventArgs.Frame.Clone();
             BitmapImage bim = ToBitmapImage(myaux);
-
 
             fileToChange = myaux;
 
@@ -215,9 +142,6 @@ namespace FInalProject_PDI
                 takeImages = false;
             }
 
-
-
-
             Dispatcher.BeginInvoke(new Action(() =>
             {
                 imgVideo.Source = bim;
@@ -227,81 +151,12 @@ namespace FInalProject_PDI
                 contador.Text = conta;
 
             }));
-        }
-
-
-
-        //private int DetectFingers(List<IntPoint> defects, AForge.Point center)
-        //{
-        //    int fingerCount = 0;
-        //    foreach (IntPoint defect in defects)
-        //    {
-        //        double angle = Math.Atan2(defect.Y - center.Y, defect.X - center.X) * 180.0 / Math.PI;
-        //        if (angle > 0) 
-        //        {
-        //            fingerCount++;
-        //        }
-        //    }
-        //    return fingerCount;
-        //}
-
-
-
-
-
-      
-
-        //void SetNewFilter(string text)
-        //{
-        //    switch (text)
-        //    {
-        //        case "Sepia":
-        //            MyFilt = SepiaFilter;
-        //            takeImages = true;
-        //            break;
-        //        case "Hue Modifier":
-        //            MyFilt = HueModifier;
-        //            break;
-
-        //        case "Sal y Pimienta":
-
-        //            MyFilt = SaltAndPepper;
-        //            break;
-        //        case "Sobel Edge Color":
-        //            takeImages = true;
-
-        //            MyFilt = SobelEdgeColor;
-        //            break;
-        //        case "Jitter":
-
-        //            MyFilt = Jitter;
-        //            break;
-        //        case "Resaltar Bordes":
-
-        //            MyFilt = kernel;
-        //            break;
-        //        default:
-        //            MyFilt = ToBitmapImage;
-        //            break;
-        //    }
-        //}
-
-
-
-
-
-
-
-
-
-        // Método auxiliar para obtener el centroide de un blob
-      
+        }     
 
         private void btnStop_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                // currentCam.Stop();
                 ProcessMyImage();
             }
             catch (Exception ex)
@@ -309,12 +164,6 @@ namespace FInalProject_PDI
 
             }
         }
-
-
-
-
-
-
 
 
         #region Filtros
@@ -487,16 +336,6 @@ namespace FInalProject_PDI
 
         #endregion
 
-        /*  private void btnAddFilter_Click(object sender, RoutedEventArgs e)
-          {
-              SetNewFilter(cmbFilters.Text);
-              if (currentCam == null) { return; }
-              currentCam.Stop();
-              currentCam.Start();
-          }*/
-
-
-
         private void Window_Closed(object sender, EventArgs e)
         {
             try
@@ -505,11 +344,8 @@ namespace FInalProject_PDI
             }
             catch (Exception)
             {
-
-
             }
         }
-
 
         void MyDetector()
         {
@@ -519,8 +355,6 @@ namespace FInalProject_PDI
 
             hilo.Start();
         }
-
-
 
         private async void ProcessMyImage()
         {
@@ -544,10 +378,9 @@ namespace FInalProject_PDI
             conta = "0 ";
             gesture = "Procesando Gesto";
 
+			if (stopProcessing) return;
 
-
-
-            using (HttpClient client = new HttpClient())
+			using (HttpClient client = new HttpClient())
             using (var content = new MultipartFormDataContent())
             {
                 try
@@ -572,8 +405,8 @@ namespace FInalProject_PDI
             }
             visible = System.Windows.Visibility.Collapsed;
 
+			if (!stopProcessing) ProcessMyImage();
 
-            ProcessMyImage();
         }
         public static byte[] ConvertBitmapToBytes(Bitmap bitmap)
         {
@@ -584,126 +417,6 @@ namespace FInalProject_PDI
                 return stream.ToArray();
             }
         }
-
-        #region NOSI<rve
-        //VectorOfInt hullIndices;
-        //Mat defects;
-        //private void ExtractContourAndHull(Mat skin)
-        //{
-        //    // Utiliza UMat para un mejor rendimiento si es posible
-        //    using (VectorOfVectorOfPoint contours = new VectorOfVectorOfPoint())
-        //    {
-        //        // Encuentra contornos
-        //        CvInvoke.FindContours(skin, contours, null, RetrType.List, ChainApproxMethod.ChainApproxSimple);
-
-        //        if (contours.Size > 0)
-        //        {
-        //            // Encuentra el contorno más grande
-        //            double maxArea = 0;
-        //            int maxContourIdx = 0;
-        //            for (int i = 0; i < contours.Size; i++)
-        //            {
-        //                double contourArea = CvInvoke.ContourArea(contours[i]);
-        //                if (contourArea > maxArea)
-        //                {
-        //                    maxArea = contourArea;
-        //                    maxContourIdx = i;
-        //                }
-        //            }
-
-        //            // Aproxima el contorno
-        //            using (VectorOfPoint approxContour = new VectorOfPoint())
-        //            {
-        //                CvInvoke.ApproxPolyDP(contours[maxContourIdx], approxContour, CvInvoke.ArcLength(contours[maxContourIdx], true) * 0.0025, true);
-        //                hull = new VectorOfPoint();
-        //                CvInvoke.ConvexHull(approxContour, hull, true);
-
-        //                // Dibuja el casco convexo
-        //                currentFrame.DrawPolyline(hull.ToArray(), true, new Bgr(200, 125, 75), 2);
-
-        //                // Obtiene el rectángulo del área mínima y dibuja el centro
-        //                box = CvInvoke.MinAreaRect(approxContour);
-        //                currentFrame.Draw(new CircleF(box.Center, 3), new Bgr(200, 125, 75), 2);
-
-        //                // Filtra el casco convexo
-        //                filteredHull = new VectorOfPoint();
-        //                System.Drawing.Point[] hullArray = hull.ToArray();
-        //                for (int i = 0; i < hullArray.Length - 1; i++)
-        //                {
-        //                    double distance = Math.Sqrt(
-        //                     (hullArray[i].X - hullArray[i + 1].X) * (hullArray[i].X - hullArray[i + 1].X) +
-        //                     (hullArray[i].Y - hullArray[i + 1].Y) * (hullArray[i].Y - hullArray[i + 1].Y));
-
-        //                    if (distance > box.Size.Width / 10)
-        //                    {
-        //                        filteredHull.Push(new[] { hullArray[i] });
-        //                    }
-        //                }
-
-        //                // Obtiene los defectos de convexidad
-        //                hullIndices = new VectorOfInt();
-        //                CvInvoke.ConvexHull(approxContour, hullIndices, false, false);
-        //                defects = new Mat();
-        //                CvInvoke.ConvexityDefects(approxContour, hullIndices, defects);
-
-        //                // Ahora puedes acceder a los defectos de convexidad desde 'defects'
-        //                // La estructura de datos puede ser diferente, así que tendrás que ajustar tu código
-        //            }
-        //        }
-        //    }
-        //}
-
-        //private void DrawAndComputeFingersNum(Mat skin, VectorOfPoint filteredHull, Mat defects, RotatedRect box)
-        //{
-        //    // Asumiendo que 'currentFrame' es un Image<Bgr, Byte> que ya has definido en tu clase
-        //    int fingerNum = 0;
-
-        //    if (defects != null && defects.Rows > 0)
-        //    {
-        //        // Convertir Mat a array de defectos de convexidad
-        //        // Nota: Asegúrate de obtener los índices de los puntos del contorno y luego los puntos reales
-        //        for (int i = 0; i < defects.Rows; i++)
-        //        {
-        //            // Obtén los índices de los puntos del contorno
-        //            int startIdx = defects.GetData().GetValue;
-        //            int endIdx = defects.GetData(i)[1];
-        //            int depthIdx = defects.GetData(i)[2];
-
-        //            // Usa los índices para obtener los puntos reales del contorno
-        //           System.Drawing. Point startPoint = filteredHull[startIdx];
-        //            System.Drawing.Point endPoint = filteredHull[endIdx];
-        //            System.Drawing.Point depthPoint = filteredHull[depthIdx];
-
-        //            // Dibuja las líneas de los defectos de convexidad
-        //            LineSegment2D startDepthLine = new LineSegment2D(startPoint, depthPoint);
-        //            LineSegment2D depthEndLine = new LineSegment2D(depthPoint, endPoint);
-
-        //            CircleF startCircle = new CircleF(startPoint, 5f);
-        //            CircleF depthCircle = new CircleF(depthPoint, 5f);
-        //            CircleF endCircle = new CircleF(endPoint, 5f);
-
-        //            // Heurística personalizada basada en algunos experimentos, verifica antes de usar
-        //            if ((startCircle.Center.Y < box.Center.Y || depthCircle.Center.Y < box.Center.Y) &&
-        //                (startCircle.Center.Y < depthCircle.Center.Y) &&
-        //                (CvInvoke.Norm(startPoint, depthPoint) > box.Size.Height / 6.5))
-        //            {
-        //                fingerNum++;
-        //                currentFrame.Draw(startDepthLine, new Bgr(System.Drawing.Color.Green), 2);
-        //            }
-
-        //            // Dibuja los círculos de los defectos de convexidad
-        //            currentFrame.Draw(startCircle, new Bgr(System.Drawing.Color.Red), 2);
-        //            currentFrame.Draw(depthCircle, new Bgr(System.Drawing.Color.Yellow), 5);
-        //        }
-        //    }
-
-
-        //}
-
-        #endregion
-
-
-
 
         Gestures GetGesture(string gest)
         {
@@ -744,49 +457,54 @@ namespace FInalProject_PDI
                 return Gestures.NotOk;
             }
 
-
             return Gestures.NOTHING;
         }
 
-
-        void MAKEACTION(Gestures gesture)
-        {
-            switch (gesture)
-            {
-                case Gestures.Open:
-                    MessageBox.Show("You selected: Open", "Gesture");
-                    break;
-                case Gestures.AFinger:
-                    MessageBox.Show("You selected: A Finger", "Gesture");
-                    break;
-                case Gestures.TwoFinger:
-                    MessageBox.Show("You selected: Two Finger", "Gesture");
-                    break;
-                case Gestures.Rock:
-                    MessageBox.Show("You selected: Rock", "Gesture");
-                    break;
-                case Gestures.Ok:
-                    MessageBox.Show("You selected: Ok", "Gesture");
-                    break;
-                case Gestures.NotOk:
-                    MessageBox.Show("You selected: Not Ok", "Gesture");
-                    break;
-                case Gestures.Close:
-                    MessageBox.Show("You selected: Close", "Gesture");
-                    break;
-                case Gestures.NONE:
-                    MessageBox.Show("You selected: NONE", "Gesture");
-                    break;
-                case Gestures.NOTHING:
-                    MessageBox.Show("You selected: NOTHING", "Gesture");
-                    break;
-                default:
-                    MessageBox.Show("Unknown gesture", "Gesture");
-                    break;
-            }
-        }
-
-    }
+		void MAKEACTION(Gestures gesture)
+		{
+			switch (gesture)
+			{
+				case Gestures.Open:
+					MessageBox.Show("You selected: Open", "Gesture");
+					stopProcessing = true;
+					currentCam.Stop();
+					Dispatcher.Invoke(() =>
+					{
+						CameraWindow cameraWindow = new CameraWindow();
+						cameraWindow.Show();
+                        this.Close();
+					});
+					break;
+				case Gestures.AFinger:
+					MessageBox.Show("You selected: A Finger", "Gesture");
+					break;
+				case Gestures.TwoFinger:
+					MessageBox.Show("You selected: Two Finger", "Gesture");
+					break;
+				case Gestures.Rock:
+					MessageBox.Show("You selected: Rock", "Gesture");
+					break;
+				case Gestures.Ok:
+					MessageBox.Show("You selected: Ok", "Gesture");
+					break;
+				case Gestures.NotOk:
+					MessageBox.Show("You selected: Not Ok", "Gesture");
+					break;
+				case Gestures.Close:
+					MessageBox.Show("You selected: Close", "Gesture");
+					break;
+				case Gestures.NONE:
+					MessageBox.Show("You selected: NONE", "Gesture");
+					break;
+				case Gestures.NOTHING:
+					MessageBox.Show("You selected: NOTHING", "Gesture");
+					break;
+				default:
+					MessageBox.Show("Unknown gesture", "Gesture");
+					break;
+			}
+		}
+	}
 }
 
 enum Gestures
