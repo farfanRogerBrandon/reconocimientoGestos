@@ -11,7 +11,7 @@
             <ComboBox x:Name="cmbCameras" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" Width="120"/>
             <Button Content="Start" Margin="10 10 10 10" VerticalAlignment="Top" Name="btnStart" Click="btnStart_Click"></Button>
             <Button Content="Stop" Margin="10 10 30 10" VerticalAlignment="Top" Name="btnStop" Click="btnStop_Click"></Button>
-
+            <Button Content="Filters" Margin="10 10 30 10" VerticalAlignment="Top" Name="btnFilters" Click="btnFilters_Click"></Button>
             <ProgressBar Visibility="Collapsed" Name="myPb" Width="100" Height="20" Background="AliceBlue" IsIndeterminate="True" Foreground="CornflowerBlue" ></ProgressBar>
             <TextBlock  Name="contador"/>
 

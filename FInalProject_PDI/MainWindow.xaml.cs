@@ -36,7 +36,6 @@ namespace FInalProject_PDI
 
         VideoCaptureDevice currentCam;
 
-
         BitmapImage currentImg;
 
 
@@ -703,8 +702,6 @@ namespace FInalProject_PDI
         #endregion
 
 
-
-
         Gestures GetGesture(string gest)
         {
             if (gest.ToLower().Contains("pointing"))
@@ -786,6 +783,13 @@ namespace FInalProject_PDI
             }
         }
 
+        private void btnFilters_Click(object sender, RoutedEventArgs e)
+        {
+            ImageFilters img = new ImageFilters();
+            img.Show();
+            //cerrar la ventana actual
+            this.Close();
+        }
     }
 }
 
