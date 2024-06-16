@@ -23,7 +23,9 @@
             <StackPanel  Orientation="Vertical" HorizontalAlignment="Center">
                 <Label Content="Bienvenido a blbalblabla"></Label>
                 <Label Content="(Imagen o emoticono del gesto xD) PARA IR A Cámara CON FILTROS"  ></Label>
-                <Label Content="(Imagen o emoticono del gesto xD) PARA Salir de la aplicación "  ></Label>
+                <Label Content="(Imagen o emoticono del gesto xD) PARA CARGAR IMAGEN Y EDITAR"  ></Label>
+
+                <Label Content="(Imagen o emoticono del gesto xD) PARA Salir de la aplicación"></Label>
                 <Label Content="(Imagen linda)"  ></Label>
 
             </StackPanel>
