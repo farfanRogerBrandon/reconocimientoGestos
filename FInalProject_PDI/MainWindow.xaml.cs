@@ -122,7 +122,7 @@ namespace FInalProject_PDI
             currentCam = new VideoCaptureDevice(cams[cmbCameras.SelectedIndex].MonikerString);
             currentCam.NewFrame += new NewFrameEventHandler(MyNewFrame);
 
-            currentCam.VideoResolution = currentCam.VideoCapabilities[5];
+            currentCam.VideoResolution = currentCam.VideoCapabilities[3];
             currentCam.Start();
 
             takeImages = true;
@@ -145,7 +145,6 @@ namespace FInalProject_PDI
             Dispatcher.BeginInvoke(new Action(() =>
             {
                 imgVideo.Source = bim;
-                // imgVideo2.Source = bim;
                 hola.Text = GESTURE.ToString();
                 myPb.Visibility = visible;
                 contador.Text = conta;
@@ -359,21 +358,14 @@ namespace FInalProject_PDI
         private async void ProcessMyImage()
         {
             visible = System.Windows.Visibility.Visible;
-            conta = "Capturando gesto en 6 ";
 
-            Thread.Sleep(1000);
-            conta = "Capturando gesto en 5 ";
-            Thread.Sleep(1000);
-            conta = "Capturando gesto en 4 ";
+            conta = "3 ";
             Thread.Sleep(1000);
 
-            conta = "Capturando gesto en 3 ";
+            conta = "2 ";
             Thread.Sleep(1000);
 
-            conta = "Capturando gesto en 2 ";
-            Thread.Sleep(1000);
-
-            conta = "Capturando gesto en 1 ";
+            conta = "1 ";
             Thread.Sleep(1000);
             conta = "0 ";
             gesture = "Procesando Gesto";
@@ -465,7 +457,6 @@ namespace FInalProject_PDI
 			switch (gesture)
 			{
 				case Gestures.Open:
-					MessageBox.Show("You selected: Open", "Gesture");
 					stopProcessing = true;
 					currentCam.Stop();
 					Dispatcher.Invoke(() =>

@@ -1,29 +1,71 @@
 ﻿<Window x:Class="FInalProject_PDI.CameraWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Camera Window" Height="450" Width="800"
-        Closed="Window_Closed">
+        Title="Camera Window" Height="725" Width="1205"
+        Closed="Window_Closed"
+        Background="Transparent"
+>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="10">
-            <ComboBox x:Name="cmbCameras" Width="200" SelectionChanged="cmbCameras_SelectionChanged"/>
-            <Button x:Name="btnStart" Content="Start" Click="btnStart_Click" Margin="10,0,0,0"/>
-            <Button x:Name="btnStop" Content="Stop" Click="btnStop_Click" Margin="10,0,0,0"/>
+        <!-- Top controls -->
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0" Margin="10">
+            <ComboBox x:Name="cmbCameras" Width="200" SelectionChanged="cmbCameras_SelectionChanged" Foreground="White">
+                <ComboBox.Background>
+                    <LinearGradientBrush EndPoint="0,1">
+                        <GradientStop Color="#FFF0F0F0"/>
+                        <GradientStop Color="#FF6BB39B" Offset="1"/>
+                    </LinearGradientBrush>
+                </ComboBox.Background>
+            </ComboBox>
+            <Button x:Name="btnStart" Content="Start" Click="btnStart_Click" Margin="10,0,0,0" Width="51" Foreground="White" Background="#FF6BB39B"/>
+            <Button x:Name="btnStop" Content="Stop" Click="btnStop_Click" Margin="10,0,0,0" Width="56" Foreground="White" Background="#FF6BB39B"/>
         </StackPanel>
 
-        <Image x:Name="imgVideo" Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Image x:Name="imgVideo1" Grid.Row="2" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10">
-            <TextBlock x:Name="hola" Text="Gesture: " FontSize="16" Margin="10"/>
-            <TextBlock x:Name="contador" Text="Counter: " FontSize="16" Margin="10"/>
+        <!-- Bottom controls -->
+        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Width="382">
+            <TextBlock x:Name="hola" Text="Gesture: " FontSize="16" Margin="10" Foreground="White"/>
+            <TextBlock x:Name="contador" Text="Counter: " FontSize="16" Margin="10" Foreground="White"/>
             <ProgressBar x:Name="myPb" Width="200" Height="20" Visibility="Collapsed" Margin="10"/>
         </StackPanel>
+
+        <!-- Main display with border -->
+        <Border CornerRadius="10" Grid.Row="1" Grid.Column="0" BorderBrush="Black" BorderThickness="1" Margin="10" Background="#FFAFFFE2">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Image x:Name="imgVideo" Grid.Row="0" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Image x:Name="imgVideo1" Grid.Row="1" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+
+        <!-- Secondary display with border -->
+        <Border  CornerRadius="10" Grid.Row="1" Grid.Column="1" BorderBrush="Black" BorderThickness="1" Margin="10" Background="#FFAFFFE2">
+            <StackPanel>
+                <TextBlock Text="OPCIONES" FontSize="32" Margin="10" Foreground="#FF85E6C0" Height="40" Width="160" FontWeight="Bold"/>
+                <Image Source="/img/A Finger.png" Margin="0,0,10,10" Stretch="Uniform" Height="66" Width="54"/>
+                <TextBlock Text="Gris" FontSize="16" Margin="10" Foreground="#FF85E6C0" Height="25" Width="36"/>
+                <Image Source="/img/Two Finger.png" Height="70" Width="55" />
+                <TextBlock Text="Invert Gris" FontSize="16" Margin="10" Foreground="#FF85E6C0" Height="25" Width="75"/>
+                <Image Source="/img/Open.png" Margin="0,0,10,10" Stretch="Uniform" Height="62" Width="95"/>
+                <TextBlock Text="HSL" FontSize="16" Margin="10" Foreground="#FF85E6C0" Height="25" Width="35"/>
+                <Image Source="/img/Close.png" Margin="0,0,10,10" Stretch="Uniform" Height="56" Width="47"/>
+                <TextBlock Text="Guardar Foto" FontSize="16" Margin="10" Foreground="#FF85E6C0" Height="25" Width="97"/>
+                <Image Source="/img/No OK.png" Margin="0,0,10,10" Stretch="Uniform" Height="50" Width="86"/>
+                <TextBlock Text="Salir" FontSize="16" Margin="10" Foreground="#FF85E6C0" Height="25" Width="48"/>
+
+
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

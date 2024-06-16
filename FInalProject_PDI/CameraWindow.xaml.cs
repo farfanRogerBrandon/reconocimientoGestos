@@ -50,6 +50,10 @@ namespace FInalProject_PDI
 		bool stopProcessing = false;
 		bool applyInvert = false;
 		bool applyGrayscale = false;
+		bool applySpeia = false;
+		bool applyHsl = false;
+
+		bool makePicture = false;
 
 		public CameraWindow()
 		{
@@ -80,7 +84,7 @@ namespace FInalProject_PDI
 
 			currentCam = new VideoCaptureDevice(cams[cmbCameras.SelectedIndex].MonikerString);
 			currentCam.NewFrame += new NewFrameEventHandler(MyNewFrame);
-			currentCam.VideoResolution = currentCam.VideoCapabilities[5];
+			currentCam.VideoResolution = currentCam.VideoCapabilities[3];
 			currentCam.Start();
 			takeImages = true;
 		}
@@ -107,6 +111,19 @@ namespace FInalProject_PDI
 				{
 					ApplyInvertFilter(fileToChange);
 				}
+				else if (applySpeia)
+				{
+					ApplySepiaFilter(fileToChange);
+				}
+				else if (applyHsl)
+				{
+					ApplyHSLFilter(fileToChange);
+				}
+				else if (makePicture)
+				{
+					 makePicture = false;
+					ShowConfirmationWindow();			
+				}
 				else
 				{
 					imgVideo1.Source = bim;
@@ -119,6 +136,13 @@ namespace FInalProject_PDI
 			}));
 		}
 
+		void ShowConfirmationWindow()
+		{
+			GestureCamera confirmationWindow = new GestureCamera();
+			confirmationWindow.Owner = this;
+			confirmationWindow.ShowDialog();
+		}
+
 		void MyDetector()
 		{
 			ThreadStart delegado = new ThreadStart(ProcessMyImage);
@@ -129,19 +153,14 @@ namespace FInalProject_PDI
 		private async void ProcessMyImage()
 		{
 			visible = System.Windows.Visibility.Visible;
-			conta = "Capturando gesto en 6 ";
-			Thread.Sleep(1000);
-			conta = "Capturando gesto en 5 ";
-			Thread.Sleep(1000);
-			conta = "Capturando gesto en 4 ";
-			Thread.Sleep(1000);
-			conta = "Capturando gesto en 3 ";
-			Thread.Sleep(1000);
-			conta = "Capturando gesto en 2 ";
-			Thread.Sleep(1000);
-			conta = "Capturando gesto en 1 ";
-			Thread.Sleep(1000);
+			for (int i = 3; i > 0; i--)
+			{
+				conta = $"Capturando gesto en {i} ";
+				Dispatcher.Invoke(() => contador.Text = conta);
+				Thread.Sleep(1000);
+			}
 			conta = "0 ";
+			Dispatcher.Invoke(() => contador.Text = conta);
 			gesture = "Procesando Gesto";
 
 			if (stopProcessing) return;
@@ -160,7 +179,7 @@ namespace FInalProject_PDI
 					string responseBody = await response.Content.ReadAsStringAsync();
 
 					GESTURE = GetGesture(responseBody);
-					MAKEACTION(GESTURE);
+					Dispatcher.Invoke(() => MAKEACTION(GESTURE));
 				}
 				catch (HttpRequestException e)
 				{
@@ -168,6 +187,7 @@ namespace FInalProject_PDI
 				}
 			}
 			visible = System.Windows.Visibility.Collapsed;
+			Dispatcher.Invoke(() => myPb.Visibility = visible);
 			if (!stopProcessing) ProcessMyImage();
 		}
 
@@ -215,41 +235,38 @@ namespace FInalProject_PDI
 
 		void MAKEACTION(Gestures gesture)
 		{
-			// Resetear los filtros
-			applyGrayscale = false;
-			applyInvert = false;
-
-			// Mostrar el mensaje emergente con la acción correspondiente al gesto
 			switch (gesture)
 			{
 				case Gestures.Open:
-					MessageBox.Show("You selected: Open", "Gesture");
+					ResetFilters();
+					applyHsl = true;
 					break;
 				case Gestures.AFinger:
+					ResetFilters();
 					applyGrayscale = true;
-					MessageBox.Show("You selected: A Finger", "Gesture");
 					break;
 				case Gestures.TwoFinger:
+					ResetFilters();
 					applyInvert = true;
-					MessageBox.Show("You selected: Two Finger", "Gesture");
 					break;
 				case Gestures.Rock:
-					MessageBox.Show("You selected: Rock", "Gesture");
+					ResetFilters();
+					applySpeia = true;
 					break;
 				case Gestures.Ok:
-					MessageBox.Show("You selected: Ok", "Gesture");
 					break;
 				case Gestures.NotOk:
-					MessageBox.Show("You selected: Not Ok", "Gesture");
+					stopProcessing = true;
+					MainWindow mainWindow = new MainWindow();
+					mainWindow.Show();
+					this.Close();
 					break;
 				case Gestures.Close:
-					MessageBox.Show("You selected: Close", "Gesture");
+					makePicture = true;
 					break;
 				case Gestures.NONE:
-					MessageBox.Show("You selected: NONE", "Gesture");
 					break;
 				case Gestures.NOTHING:
-					MessageBox.Show("You selected: NOTHING", "Gesture");
 					break;
 				default:
 					MessageBox.Show("Unknown gesture", "Gesture");
@@ -257,9 +274,20 @@ namespace FInalProject_PDI
 			}
 		}
 
+		void ResetFilters()
+		{
+			applySpeia = false;
+			applyGrayscale = false;
+			applyInvert = false;
+			applyHsl = false;
+			makePicture = false;
+		}
+
 		void ApplyGrayscaleFilter(Bitmap bitmap)
 		{
 			applyInvert = false;
+			applySpeia = false;
+			applyHsl = false;
 
 			if (bitmap != null)
 			{
@@ -278,6 +306,8 @@ namespace FInalProject_PDI
 		void ApplyInvertFilter(Bitmap bitmap)
 		{
 			applyGrayscale = false;
+			applySpeia = false;
+			applyHsl = false;
 
 			if (bitmap != null)
 			{
@@ -292,6 +322,84 @@ namespace FInalProject_PDI
 				}));
 			}
 		}
+
+		void ApplySepiaFilter(Bitmap bitmap)
+		{
+			applyHsl = false;
+			applyGrayscale = false;
+			applyInvert = false;
+
+			if (bitmap != null)
+			{
+				Sepia filtroSepia = new Sepia();
+				Bitmap sepiaImage = filtroSepia.Apply(bitmap);
+
+				filteredImage = MainWindow.ToBitmapImage(sepiaImage);
+
+				Dispatcher.BeginInvoke(new Action(() =>
+				{
+					imgVideo1.Source = filteredImage;
+				}));
+			}
+		}
+
+		void ApplyHSLFilter(Bitmap bitmap)
+		{
+			applyGrayscale = false;
+			applyInvert = false;
+			applySpeia = false;
+
+			if (bitmap != null)
+			{
+				HSLFiltering hSLFiltering = new HSLFiltering();
+				hSLFiltering.Hue = new IntRange(340, 20);
+				hSLFiltering.UpdateHue = false;
+				hSLFiltering.UpdateLuminance = false;
+				Bitmap hslImage = hSLFiltering.Apply(bitmap);
+				filteredImage = MainWindow.ToBitmapImage(hslImage);
+
+				Dispatcher.BeginInvoke(new Action(() =>
+				{
+					imgVideo1.Source = filteredImage;
+				}));
+			}
+		}
+
+		public void SavePhoto()
+		{
+			if (filteredImage != null)
+			{
+				try
+				{
+					string folderPath = @"D:\GitHub\reconocimientoGestos\fotitos";
+					if (!Directory.Exists(folderPath))
+					{
+						Directory.CreateDirectory(folderPath);
+					}
+
+					string photoPath = System.IO.Path.Combine(folderPath, "foto.jpg");
+
+					BitmapEncoder encoder = new JpegBitmapEncoder();
+					encoder.Frames.Add(BitmapFrame.Create(filteredImage));
+					using (var fileStream = new FileStream(photoPath, FileMode.Create))
+					{
+						encoder.Save(fileStream);
+					}
+
+					MessageBox.Show($"Foto guardada en: {photoPath}");
+				}
+				catch (Exception ex)
+				{
+					MessageBox.Show($"Error al guardar la foto: {ex.Message}");
+				}
+			}
+			else
+			{
+				MessageBox.Show("No hay imagen filtrada para guardar.");
+			}
+		}
+
+
 
 		private void cmbCameras_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
@@ -321,6 +429,47 @@ namespace FInalProject_PDI
 			{
 			}
 		}
+
+		public async Task<Gestures> RecognizeGestureFromCurrentFrame()
+		{
+			if (fileToChange == null)
+				return Gestures.NOTHING;
+
+			using (HttpClient client = new HttpClient())
+			using (var content = new MultipartFormDataContent())
+			{
+				try
+				{
+					byte[] imageBytes = MainWindow.ConvertBitmapToBytes(fileToChange);
+					var imageContent = new ByteArrayContent(imageBytes);
+					content.Add(imageContent, "image", "image.jpg");
+
+					HttpResponseMessage response = await client.PostAsync("http://127.0.0.1:5000/recognize_gesture", content);
+					response.EnsureSuccessStatusCode();
+					string responseBody = await response.Content.ReadAsStringAsync();
+
+					return GetGesture(responseBody);
+				}
+				catch (HttpRequestException e)
+				{
+					MessageBox.Show($"Error al hacer la solicitud HTTP: {e.Message}");
+					return Gestures.NOTHING;
+				}
+			}
+		}
+	}
+
+	public enum Gestures
+	{
+		NOTHING,
+		AFinger,
+		Open,
+		Rock,
+		Close,
+		NONE,
+		TwoFinger,
+		Ok,
+		NotOk
 	}
 
 }
