@@ -1,0 +1,49 @@
+﻿<Window x:Class="FInalProject_PDI.Cuestionario"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:FInalProject_PDI"
+        mc:Ignorable="d"
+        Title="Cuestionario" Height="450" Width="800"
+        Background="#DAF3EA">
+    <Grid>
+        <Grid.Background>
+            <ImageBrush/>
+        </Grid.Background>
+        <Image x:Name="imgVideo" HorizontalAlignment="Left" Height="199" Margin="10,65,0,0" VerticalAlignment="Top" Width="404" Source="/img/camera-viewfinder-png-6-removebg-preview.png" Stretch="Fill"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="79,269,0,0" VerticalAlignment="Top" Width="100" Source="/img/bien.jpg"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="225,269,0,0" VerticalAlignment="Top" Width="84" Source="/img/mal.jpg"/>
+        <Label Content="Satisfecho" HorizontalAlignment="Left" Margin="77,380,0,0" VerticalAlignment="Top" FontFamily="Lucida Console" Foreground="#0B0B0D" FontWeight="Bold"/>
+        <Label Content="Desacuerdo" HorizontalAlignment="Left" Margin="223,380,0,0" VerticalAlignment="Top" FontFamily="Lucida Console" Foreground="#0B0B0D" FontWeight="Bold"/>
+
+        <Border HorizontalAlignment="Left" Margin="452,76,0,0" VerticalAlignment="Top" Width="295" Height="244" CornerRadius="15" Background="#FFF7F4E8" BorderBrush="#0B0B0D" BorderThickness="2,2,2,2">
+            <Border CornerRadius="10" Background="#DAF3EA" BorderBrush="#85E6C0" BorderThickness="3" Margin="5">
+                <StackPanel Margin="7">
+                    <TextBlock x:Name="txb_cuestionario" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0" FontSize="12" TextWrapping="Wrap" Text="" Background="Transparent" Foreground="#6BB39B" FontFamily="Lucida Console"/>
+                    <TextBlock x:Name="txb_cuestionario1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,100,0,0" FontSize="12" TextWrapping="Wrap" Visibility="Collapsed" Background="Transparent" Foreground="#6BB39B" FontFamily="Lucida Console"/>
+                    <TextBlock x:Name="txb_cuestionario2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,150,0,0" FontSize="12" TextWrapping="Wrap" Visibility="Collapsed" Background="Transparent" Foreground="#6BB39B" FontFamily="Lucida Console"/>
+                    <TextBlock x:Name="txb_cuestionario3" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,200,0,0" FontSize="12" TextWrapping="Wrap" Visibility="Collapsed" Background="Transparent" Foreground="#6BB39B" FontFamily="Lucida Console"/>
+                    <TextBlock x:Name="txb_cuestionario4" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,250,0,0" FontSize="12" TextWrapping="Wrap" Visibility="Collapsed" Background="Transparent" Foreground="#6BB39B" FontFamily="Lucida Console"/>
+                    <TextBlock x:Name="txb_cuestionario5" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,300,0,0" FontSize="12" TextWrapping="Wrap" Visibility="Collapsed" Background="Transparent" Foreground="#6BB39B" FontFamily="Lucida Console"/>
+                </StackPanel>
+            </Border>
+        </Border>
+        <Label Content="CAMARA" HorizontalAlignment="Left" Margin="173,37,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Lucida Console" FontSize="18"/>
+        <Label Content="CUESTIONARIO" HorizontalAlignment="Center" Height="32" VerticalAlignment="Top" Width="800" Background="#FF0B0B0D" Foreground="#FF6BB39B" HorizontalContentAlignment="Center" FontFamily="Lucida Console" FontWeight="Bold" FontSize="16"/>
+
+        <!--<TextBlock x:Name="txb_cuestionario" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,50,0,0" FontSize="24" Text="hh" />
+        <TextBlock x:Name="txb_cuestionario1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,100,0,0" FontSize="24" Visibility="Collapsed" />
+        <TextBlock x:Name="txb_cuestionario2" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,150,0,0" FontSize="24" Visibility="Collapsed" />
+        <TextBlock x:Name="txb_cuestionario3" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,200,0,0" FontSize="24" Visibility="Collapsed" />
+        <TextBlock x:Name="txb_cuestionario4" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,250,0,0" FontSize="24" Visibility="Collapsed" />
+        <TextBlock x:Name="txb_cuestionario5" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,300,0,0" FontSize="24" Visibility="Collapsed" />-->
+
+        <!--<Border x:Name="img_video" Background="#f7f4e8" HorizontalAlignment="Left" Margin="446,50,0,162" Width="417" Height="222">
+            <Image x:Name="imgVideo" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>-->
+
+
+
+    </Grid>
+</Window>

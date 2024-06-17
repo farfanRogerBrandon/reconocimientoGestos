@@ -62,7 +62,8 @@ namespace FInalProject_PDI
 
         int nroIm = 0;
 
-
+        private bool isNotOkGestureHandled = false;
+        private Cuestionario cuestionario;
 
         public MainWindow()
         {
@@ -231,71 +232,7 @@ namespace FInalProject_PDI
 
 
 
-        //private int DetectFingers(List<IntPoint> defects, AForge.Point center)
-        //{
-        //    int fingerCount = 0;
-        //    foreach (IntPoint defect in defects)
-        //    {
-        //        double angle = Math.Atan2(defect.Y - center.Y, defect.X - center.X) * 180.0 / Math.PI;
-        //        if (angle > 0) 
-        //        {
-        //            fingerCount++;
-        //        }
-        //    }
-        //    return fingerCount;
-        //}
-
-
-
-
-
-      
-
-        //void SetNewFilter(string text)
-        //{
-        //    switch (text)
-        //    {
-        //        case "Sepia":
-        //            MyFilt = SepiaFilter;
-        //            takeImages = true;
-        //            break;
-        //        case "Hue Modifier":
-        //            MyFilt = HueModifier;
-        //            break;
-
-        //        case "Sal y Pimienta":
-
-        //            MyFilt = SaltAndPepper;
-        //            break;
-        //        case "Sobel Edge Color":
-        //            takeImages = true;
-
-        //            MyFilt = SobelEdgeColor;
-        //            break;
-        //        case "Jitter":
-
-        //            MyFilt = Jitter;
-        //            break;
-        //        case "Resaltar Bordes":
-
-        //            MyFilt = kernel;
-        //            break;
-        //        default:
-        //            MyFilt = ToBitmapImage;
-        //            break;
-        //    }
-        //}
-
-
-
-
-
-
-
-
-
-        // Método auxiliar para obtener el centroide de un blob
-      
+        
 
         private void btnStop_Click(object sender, RoutedEventArgs e)
         {
@@ -487,15 +424,7 @@ namespace FInalProject_PDI
 
         #endregion
 
-        /*  private void btnAddFilter_Click(object sender, RoutedEventArgs e)
-          {
-              SetNewFilter(cmbFilters.Text);
-              if (currentCam == null) { return; }
-              currentCam.Stop();
-              currentCam.Start();
-          }*/
-
-
+        
 
         private void Window_Closed(object sender, EventArgs e)
         {
@@ -766,10 +695,31 @@ namespace FInalProject_PDI
                     MessageBox.Show("You selected: Rock", "Gesture");
                     break;
                 case Gestures.Ok:
-                    MessageBox.Show("You selected: Ok", "Gesture");
+                    //MessageBox.Show("You selected: Ok", "Gesture");
+                    Dispatcher.Invoke(() => cuestionario?.HandleGesture(Gestures.Ok));
                     break;
                 case Gestures.NotOk:
-                    MessageBox.Show("You selected: Not Ok", "Gesture");
+                    //MessageBox.Show("You selected: Not Ok", "Gesture");
+                    if (!isNotOkGestureHandled)
+                    {
+                        isNotOkGestureHandled = true;
+                        Dispatcher.Invoke(() =>
+                        {
+                            //MessageBox.Show("You selected: Not Ok", "Gesture");
+                            if (currentCam != null)
+                            {
+                                currentCam.SignalToStop();
+                                currentCam.WaitForStop();
+                            }
+                            this.Hide();
+                            cuestionario = new Cuestionario(currentCam);
+                            cuestionario.Show();
+                        });
+                    }
+                    else
+                    {
+                        Dispatcher.Invoke(() => cuestionario?.HandleGesture(Gestures.NotOk));
+                    }
                     break;
                 case Gestures.Close:
                     MessageBox.Show("You selected: Close", "Gesture");
@@ -789,7 +739,7 @@ namespace FInalProject_PDI
     }
 }
 
-enum Gestures
+public enum Gestures
 {
     Open,
     AFinger,

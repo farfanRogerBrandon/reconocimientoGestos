@@ -5,33 +5,57 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FInalProject_PDI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <StackPanel>
-        <StackPanel Orientation="Horizontal">
-            <ComboBox x:Name="cmbCameras" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" Width="120"/>
-            <Button Content="Start" Margin="10 10 10 10" VerticalAlignment="Top" Name="btnStart" Click="btnStart_Click"></Button>
-            <Button Content="Stop" Margin="10 10 30 10" VerticalAlignment="Top" Name="btnStop" Click="btnStop_Click"></Button>
-
-            <ProgressBar Visibility="Collapsed" Name="myPb" Width="100" Height="20" Background="AliceBlue" IsIndeterminate="True" Foreground="CornflowerBlue" ></ProgressBar>
-            <TextBlock  Name="contador"/>
-
-            <TextBlock  Name="hola"/>
-
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" Width="auto" HorizontalAlignment="Center">
-            <Image x:Name="imgVideo" Margin="20" VerticalAlignment="Center" HorizontalAlignment="Left"/>
-            <StackPanel  Orientation="Vertical" HorizontalAlignment="Center">
-                <Label Content="Bienvenido a blbalblabla"></Label>
-                <Label Content="(Imagen o emoticono del gesto xD) PARA IR A Cámara CON FILTROS"  ></Label>
-                <Label Content="(Imagen o emoticono del gesto xD) PARA CARGAR IMAGEN Y EDITAR"  ></Label>
-
-                <Label Content="(Imagen o emoticono del gesto xD) PARA Salir de la aplicación"></Label>
-                <Label Content="(Imagen linda)"  ></Label>
-
+        Title="MainWindow" Height="450" Width="800"
+        Background="#DAF3EA">
+    <Window.Resources>
+        <ControlTemplate x:Key="ButtonTemplate" TargetType="Button">
+            <Border x:Name="border" Background="#0B0B0D" CornerRadius="7" BorderBrush="#DAF3EA" BorderThickness="2,2,2,2">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="border" Property="Background" Value="#DAF3EA"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+    </Window.Resources>
+    <Grid>
+        <Image x:Name="imgVideo" HorizontalAlignment="Left" Height="206" Margin="10,66,0,0" VerticalAlignment="Top" Width="451" Source="/img/camera-viewfinder-png-6-removebg-preview.png" Stretch="Fill"/>
+        <Label Content="CAMARA" HorizontalAlignment="Left" Margin="213,40,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Yu Gothic UI Semibold"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="70,277,0,0" VerticalAlignment="Top" Width="100" Source="/img/palma.jpg"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="315,277,0,0" VerticalAlignment="Top" Width="100" Source="/img/mal.jpg"/>
+        <Image HorizontalAlignment="Left" Height="100" Margin="197,277,0,0" VerticalAlignment="Top" Width="100" Source="/img/dos.jpg"/>
+        <Label Content="Imagen 1" HorizontalAlignment="Left" Margin="65,382,0,0" VerticalAlignment="Top" FontFamily="Lucida Console" Foreground="#0B0B0D" FontWeight="Bold"/>
+        <Label Content="Filtros" HorizontalAlignment="Left" Margin="187,382,0,0" VerticalAlignment="Top" FontFamily="Lucida Console" Foreground="#0B0B0D" FontWeight="Bold"/>
+        <Label Content="Cuestionario" HorizontalAlignment="Left" Margin="306,382,0,0" VerticalAlignment="Top" FontFamily="Lucida Console" Foreground="#0B0B0D" FontWeight="Bold"/>
+        <Border Background="#F7F4E8" Margin="489,53,57,30" BorderBrush="#FFCCCCCC" BorderThickness="2" CornerRadius="10">
+            <StackPanel Margin="10">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10">
+                    <Button Name="btnStart" Click="btnStart_Click" Content="Start" Width="100" Margin="10" Template="{StaticResource ButtonTemplate}" Foreground="#FF85E6C0" FontFamily="Lucida Console" Height="25"/>
+                    <Button Name="btnStop" Click="btnStop_Click" Content="Stop" Width="100" Margin="10" Template="{StaticResource ButtonTemplate}" Foreground="#FF85E6C0" FontFamily="Lucida Console"/>
+                </StackPanel>
+                <ComboBox x:Name="cmbCameras" Width="200" Margin="0,10"/>
+                <ProgressBar Name="myPb" IsIndeterminate="True" Height="23" Width="201" Background="AliceBlue" Foreground="CornflowerBlue" Visibility="Hidden"/>
+                <TextBlock Name="contador" Text="Contador" Margin="10,10,10,10" Foreground="#0B0B0D" FontFamily="Yu Gothic UI Semibold"/>
+                <TextBlock Name="hola" Text="" Margin="10,10,10,10" Foreground="#0B0B0D" FontFamily="Yu Gothic UI Semibold"/>
             </StackPanel>
+        </Border>
+        <Label Content="RECONOCIMIENTO DE GESTOS" HorizontalAlignment="Center" Height="32" VerticalAlignment="Top" Width="800" Background="#FF0B0B0D" Foreground="#FF6BB39B" HorizontalContentAlignment="Center" FontFamily="Lucida Console" FontWeight="Bold" FontSize="16"/>
+        <!--<StackPanel Orientation="Horizontal">
+            -->
+        <!--<ComboBox x:Name="cmbCameras" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" Width="120"/>-->
+        <!--<Button Content="Start" Margin="10 10 10 10" VerticalAlignment="Top" Name="btnStart" Click="btnStart_Click"></Button>-->
+        <!--<Button Content="Stop" Margin="10 10 30 10" VerticalAlignment="Top" Name="btnStop" Click="btnStop_Click"></Button>-->
 
-        </StackPanel>
+        <!--<ProgressBar Visibility="Collapsed" Name="myPb" Width="100" Height="20" Background="AliceBlue" IsIndeterminate="True" Foreground="CornflowerBlue" ></ProgressBar>-->
+        <!--<TextBlock  Name="contador"/>-->
 
-    </StackPanel>
+        <!--<TextBlock  Name="hola"/>-->
+        <!--
+
+        </StackPanel>-->
+
+
+    </Grid>
 
 </Window>
