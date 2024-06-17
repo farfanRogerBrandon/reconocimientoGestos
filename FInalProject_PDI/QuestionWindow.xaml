@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FInalProject_PDI"
         mc:Ignorable="d"
-        Title="QuestionWindow" Height="175" Width="350">
-    <Grid>
-        <Label x:Name="lbl_info" Content="ESTO ES UNA PREGUNTA" HorizontalAlignment="Left" Margin="42,23,0,0" VerticalAlignment="Top" Height="51" Width="258"/>
-        <Button x:Name="btnAccept" Content="Aceptar" HorizontalAlignment="Left" Margin="40,104,0,0" VerticalAlignment="Top" Height="35" Width="80"/>
-        <Button x:Name="btnCerrar" Content="Cerrar" HorizontalAlignment="Left" Margin="215,104,0,0" VerticalAlignment="Top" Height="35" Width="80"/>
+        Title="" Height="175" Width="400"
+        WindowStyle="None"
+        >
+    <Grid Background="#FFD3FFFF">
+        <Label x:Name="lbl_info" Content="ESTO ES UNA PREGUNTA" HorizontalAlignment="Center" Margin="0,23,0,0" VerticalAlignment="Top" Height="77" Width="318"/>
+        <Button x:Name="btnAccept" Content="Aceptar" HorizontalAlignment="Left" Margin="75,105,0,0" VerticalAlignment="Top" Height="35" Width="80" Background="#FF64FF89" BorderBrush="AliceBlue"/>
+        <Button x:Name="btnCerrar" Content="Cerrar" HorizontalAlignment="Left" Margin="250,105,0,0" VerticalAlignment="Top" Height="35" Width="80" Background="#FF64FF89" BorderBrush="AliceBlue"/>
 
     </Grid>
 </Window>

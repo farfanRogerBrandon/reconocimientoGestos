@@ -28,6 +28,10 @@ namespace FInalProject_PDI
         {
             InitializeComponent();
             lbl_info.Content = question;
+            //hacer que el texto este en negrita y centrado
+            lbl_info.FontWeight = FontWeights.Bold;
+            lbl_info.HorizontalContentAlignment = HorizontalAlignment.Center;
+            lbl_info.FontSize = 20;
         }
     }
 }

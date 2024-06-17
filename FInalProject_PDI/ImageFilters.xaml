@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FInalProject_PDI"
         mc:Ignorable="d"
-        Title="ImageFilters" Height="450" Width="800">
-    <StackPanel>
+        Title="ImageFilters" Height="575" Width="1010">
+    <StackPanel Background="#FFCFFFF1" >
         <StackPanel Orientation="Horizontal">
             <ComboBox x:Name="cmbCameras" HorizontalAlignment="Left" Margin="10" VerticalAlignment="Top" Width="120"/>
 
@@ -16,67 +16,73 @@
             <TextBlock  Name="hola"/>
 
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Width="auto" HorizontalAlignment="Center">
-            <Image x:Name="imgVideo" Margin="20" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+        <StackPanel Orientation="Horizontal" Width="auto" HorizontalAlignment="Center" Background="#FFDFFFDB" Height="217">
+            <Image x:Name="imgVideo" Margin="20" VerticalAlignment="Top" Width="300" Height="200"/>
 
         </StackPanel>
-    
-    
+
+
         <!-- Parte central-->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
                 <Image x:Name="imgToProcess" Margin="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="250" Height="160"/>
                 <Image x:Name="imgProcessed" Margin="20" VerticalAlignment="Top" HorizontalAlignment="Left" Width="250" Height="160"/>
             </StackPanel>
 
 
             <StackPanel Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Right">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/twoFingers.jpg" Height="42" Width="48">
-
-                    </Image>
-                    <TextBlock Text="Siguiente Imagen"></TextBlock>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Image Source="/Images/twoFingers.jpg" Height="42" Width="48" HorizontalAlignment="Left" Stretch="Fill" Margin="0,0,10,0" />
+                    <TextBlock Text="Siguiente Imagen" FontWeight="Bold"></TextBlock>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/oneFinger.jpg" Height="42" Width="48">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Image Source="/Images/oneFinger.jpg" Height="42" Width="48" HorizontalAlignment="Left" Stretch="Fill" Margin="0,0,10,0">
 
                     </Image>
-                    <TextBlock Text="Correcion de contraste"></TextBlock>
+                    <TextBlock Text="Correcion de saturación" FontWeight="Bold"></TextBlock>
                 </StackPanel>
 
 
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/palm.jpg" Height="42" Width="48">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Image Source="/Images/palm.jpg" Height="42" Width="48" HorizontalAlignment="Left" Stretch="Fill" Margin="0,0,10,0">
 
                     </Image>
 
-                    <TextBlock Text="Correccion de brillo"></TextBlock>
+                    <TextBlock Text="Correccion de brillo" FontWeight="Bold"></TextBlock>
 
                 </StackPanel>
-                <StackPanel Orientation="Horizontal">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
 
-                    <Image Source="/rock.jpg" Height="42" Width="48">
+                    <Image Source="/Images/rockroll.jpg" Height="42" Width="48" HorizontalAlignment="Left" Stretch="Fill" Margin="0,0,10,0">
 
                     </Image>
-                    <TextBlock Text="Siguiente Imagen"></TextBlock>
+                    <TextBlock Text="Correcion de contraste" FontWeight="Bold"></TextBlock>
                 </StackPanel>
 
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="/ok.jpg" Height="42" Width="48">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+
+                    <Image Source="/Images/close.jpg" Height="42" Width="48" HorizontalAlignment="Left" Stretch="Fill" Margin="0,0,10,0">
 
                     </Image>
-                    <TextBlock Text="Guardar Imagen"></TextBlock>
+                    <TextBlock Text="Volverr al menu" FontWeight="Bold"></TextBlock>
+                </StackPanel>
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                    <Image Source="/Images/ok.jpg" Height="42" Width="48" Stretch="Fill" Margin="0,0,10,0">
+
+                    </Image>
+                    <TextBlock Text="Guardar Imagen" FontWeight="Bold"/>
 
                 </StackPanel>
             </StackPanel>
 
         </StackPanel>
-    
-    
 
-        
-    
-    
+
+
+
+
+
 
     </StackPanel>
 </Window>
