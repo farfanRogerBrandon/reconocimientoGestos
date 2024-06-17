@@ -44,8 +44,14 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Image x:Name="imgVideo" Stretch="Fill" HorizontalAlignment="Left" VerticalAlignment="Top" Height="299" Width="575" Margin="101,10,0,0" Source="/img/video.png" />
-                <Image x:Name="imgVideo1" Grid.Row="1" Stretch="Fill" HorizontalAlignment="Left" VerticalAlignment="Top" Height="299" Width="575" Source="/img/video.png" Margin="101,10,0,0"/>
+                <Image x:Name="imgVideo" Stretch="Fill" HorizontalAlignment="Left" VerticalAlignment="Top" Height="299" Width="375" Margin="191,10,0,0" Source="/img/video.png" />
+                <Image x:Name="imgBackVideo" Stretch="Fill" HorizontalAlignment="Left" VerticalAlignment="Top" Height="299" Width="375" Margin="191,10,0,0" Source="/img/camera-viewfinder-png-6-removebg-preview.png" />
+
+                <Image x:Name="imgVideo1" Grid.Row="1" Stretch="Fill" HorizontalAlignment="Left" VerticalAlignment="Top" Height="299" Width="435" Source="/img/video.png" Margin="161,10,0,0"/>
+
+                <Image x:Name="imgVideoback" Grid.Row="1" Stretch="Fill" HorizontalAlignment="Left" VerticalAlignment="Top" Height="299" Width="435" Source="/img/camera-viewfinder-png-6-removebg-preview.png" Margin="161,10,0,0"/>
+
+
             </Grid>
         </Border>
 

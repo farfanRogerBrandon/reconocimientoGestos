@@ -20,7 +20,10 @@
         </ControlTemplate>
     </Window.Resources>
     <Grid>
+
         <Image x:Name="imgVideo" HorizontalAlignment="Left" Height="206" Margin="110,66,0,0" VerticalAlignment="Top" Width="301" Source="/img/camera-viewfinder-png-6-removebg-preview.png" Stretch="Fill"/>
+        <Image x:Name="imgVideoBack" HorizontalAlignment="Left" Height="206" Margin="110,66,0,0" VerticalAlignment="Top" Width="301" Source="/img/camera-viewfinder-png-6-removebg-preview.png" Stretch="Fill"  />
+
         <Label Content="CAMARA" HorizontalAlignment="Left" Margin="213,40,0,0" VerticalAlignment="Top" FontWeight="Bold" FontFamily="Yu Gothic UI Semibold"/>
         <Image HorizontalAlignment="Left" Height="100" Margin="70,277,0,0" VerticalAlignment="Top" Width="100" Source="/img/palma.jpg"/>
         <Image HorizontalAlignment="Left" Height="100" Margin="315,277,0,0" VerticalAlignment="Top" Width="100" Source="/img/mal.jpg"/>

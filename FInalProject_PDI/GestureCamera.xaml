@@ -3,9 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+       
         xmlns:local="clr-namespace:FInalProject_PDI"
         mc:Ignorable="d"
-        Title="GestureCamera" Height="195" Width="521">
+        Title="GestureCamera" Height="195" Width="521"
+       
+        >
     <Grid>
         <Label Content="¿Deseas guardar la foto?" HorizontalAlignment="Left" Margin="136,10,0,0" VerticalAlignment="Top" FontSize="24"/>
         <Label Content="SI" HorizontalAlignment="Left" Margin="209,112,0,0" VerticalAlignment="Top" FontSize="11"/>

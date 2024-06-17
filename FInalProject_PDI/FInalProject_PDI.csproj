@@ -80,6 +80,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Cuestionario.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="GestureCamera.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -95,6 +99,10 @@
     <Compile Include="CameraWindow.xaml.cs">
       <DependentUpon>CameraWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Cuestionario.xaml.cs">
+      <DependentUpon>Cuestionario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GeneralTools.cs" />
     <Compile Include="GestureCamera.xaml.cs">
       <DependentUpon>GestureCamera.xaml</DependentUpon>
     </Compile>
@@ -141,6 +149,11 @@
   <ItemGroup>
     <Resource Include="foto.png" />
     <Resource Include="img\foto.png" />
+    <Resource Include="img\dos.jpg" />
+    <Resource Include="img\mal.jpg" />
+    <Resource Include="img\palma.jpg" />
+    <Resource Include="img\camera-viewfinder-png-6-removebg-preview.png" />
+    <Resource Include="img\bien.jpg" />
     <Content Include="img\video.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

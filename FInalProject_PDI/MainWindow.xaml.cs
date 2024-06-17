@@ -354,12 +354,13 @@ namespace FInalProject_PDI
             {
             }
         }
+        Thread hilo;
 
         void MyDetector()
         {
             ThreadStart delegado = new ThreadStart(ProcessMyImage);
 
-            Thread hilo = new Thread(delegado);
+             hilo = new Thread(delegado);
 
             hilo.Start();
         }
@@ -379,6 +380,7 @@ namespace FInalProject_PDI
             conta = "0 ";
             gesture = "Procesando Gesto";
 
+            Thread.Sleep(1000);
 			if (stopProcessing) return;
 
 			using (HttpClient client = new HttpClient())
@@ -386,11 +388,13 @@ namespace FInalProject_PDI
             {
                 try
                 {
+                    ContrastCorrection he = new ContrastCorrection();
+                    he.ApplyInPlace(fileToChange);
                     byte[] imageBytes = ConvertBitmapToBytes(fileToChange);
                     var imageContent = new ByteArrayContent(imageBytes);
                     content.Add(imageContent, "image", "image.jpg");
 
-                    HttpResponseMessage response = await client.PostAsync("http://127.0.0.1:5000/recognize_gesture", content);
+                    HttpResponseMessage response = await client.PostAsync(GeneralTools.ApiCpnnection, content);
                     response.EnsureSuccessStatusCode();
                     string responseBody = await response.Content.ReadAsStringAsync();
                     // MessageBox.Show(  responseBody);
@@ -411,12 +415,21 @@ namespace FInalProject_PDI
         }
         public static byte[] ConvertBitmapToBytes(Bitmap bitmap)
         {
-            Bitmap aux = new Bitmap(bitmap);
-            using (MemoryStream stream = new MemoryStream())
+            try
             {
-                aux.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
-                return stream.ToArray();
+                Bitmap aux = new Bitmap(bitmap);
+                using (MemoryStream stream = new MemoryStream())
+                {
+                    aux.Save(stream, System.Drawing.Imaging.ImageFormat.Bmp);
+                    return stream.ToArray();
+                }
             }
+            catch (Exception)
+            {
+                return null;
+               
+            }
+           
         }
 
         Gestures GetGesture(string gest)
@@ -472,6 +485,8 @@ namespace FInalProject_PDI
                     Dispatcher.Invoke(() =>
                     {
                         CameraWindow cameraWindow = new CameraWindow();
+                        hilo.Abort();
+
                         cameraWindow.Show();
                         this.Close();
                     });

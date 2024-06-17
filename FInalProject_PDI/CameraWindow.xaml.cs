@@ -82,7 +82,7 @@ namespace FInalProject_PDI
 				currentCam.Stop();
 			}
 
-			currentCam = new VideoCaptureDevice(cams[cmbCameras.SelectedIndex].MonikerString);
+			currentCam = new VideoCaptureDevice(cams[2].MonikerString);
 			currentCam.NewFrame += new NewFrameEventHandler(MyNewFrame);
 			currentCam.VideoResolution = currentCam.VideoCapabilities[3];
 			currentCam.Start();
@@ -174,7 +174,7 @@ namespace FInalProject_PDI
 					var imageContent = new ByteArrayContent(imageBytes);
 					content.Add(imageContent, "image", "image.jpg");
 
-					HttpResponseMessage response = await client.PostAsync("http://127.0.0.1:5000/recognize_gesture", content);
+					HttpResponseMessage response = await client.PostAsync(GeneralTools.ApiCpnnection, content);
 					response.EnsureSuccessStatusCode();
 					string responseBody = await response.Content.ReadAsStringAsync();
 
