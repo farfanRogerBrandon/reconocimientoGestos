@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -24,24 +23,25 @@ namespace FInalProject_PDI
 			if (recognizedGesture == Gestures.Ok)
 			{
 				((CameraWindow)Owner).SavePhoto();
+				//MessageBox.Show("Foto guardada.");
 			}
 			else if (recognizedGesture == Gestures.NotOk)
 			{
-				MessageBox.Show("Foto descartada");
+				MessageBox.Show("Foto descartada.");
 			}
 			else
 			{
-
+				MessageBox.Show("Gesto no reconocido.");
 			}
 			Close();
 		}
 
 		private async Task<Gestures> RecognizeGestureAsync()
 		{
-			await Task.Delay(3000);
+			await Task.Delay(3000); // Simulate delay for gesture recognition
 			var cameraWindow = (CameraWindow)Owner;
 			var gesture = await cameraWindow.RecognizeGestureFromCurrentFrame();
-			return gesture;
+			return (Gestures)gesture;
 		}
 	}
 }

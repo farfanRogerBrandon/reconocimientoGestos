@@ -138,5 +138,10 @@
     <Resource Include="img\Open.png" />
     <Resource Include="img\Two Finger.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="foto.png" />
+    <Resource Include="img\foto.png" />
+    <Content Include="img\video.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

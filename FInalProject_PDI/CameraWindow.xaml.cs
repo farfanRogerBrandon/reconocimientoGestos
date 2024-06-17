@@ -121,8 +121,8 @@ namespace FInalProject_PDI
 				}
 				else if (makePicture)
 				{
-					 makePicture = false;
-					ShowConfirmationWindow();			
+					makePicture = false;
+					ShowConfirmationWindow();
 				}
 				else
 				{
@@ -235,22 +235,32 @@ namespace FInalProject_PDI
 
 		void MAKEACTION(Gestures gesture)
 		{
+
+			if (gesture == Gestures.NOTHING && gesture == Gestures.NONE)
+			{
+				return;
+			}
+
+			applySpeia = false;
+			applyGrayscale = false;
+			applyInvert = false;
+			applyHsl = false;
+			makePicture = false;
+
 			switch (gesture)
 			{
 				case Gestures.Open:
-					ResetFilters();
 					applyHsl = true;
 					break;
 				case Gestures.AFinger:
-					ResetFilters();
 					applyGrayscale = true;
+
 					break;
 				case Gestures.TwoFinger:
-					ResetFilters();
 					applyInvert = true;
+
 					break;
 				case Gestures.Rock:
-					ResetFilters();
 					applySpeia = true;
 					break;
 				case Gestures.Ok:
@@ -265,22 +275,15 @@ namespace FInalProject_PDI
 					makePicture = true;
 					break;
 				case Gestures.NONE:
+
 					break;
 				case Gestures.NOTHING:
+
 					break;
 				default:
-					MessageBox.Show("Unknown gesture", "Gesture");
+
 					break;
 			}
-		}
-
-		void ResetFilters()
-		{
-			applySpeia = false;
-			applyGrayscale = false;
-			applyInvert = false;
-			applyHsl = false;
-			makePicture = false;
 		}
 
 		void ApplyGrayscaleFilter(Bitmap bitmap)
