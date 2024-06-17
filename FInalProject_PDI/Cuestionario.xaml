@@ -11,7 +11,7 @@
         <Grid.Background>
             <ImageBrush/>
         </Grid.Background>
-        <Image x:Name="imgVideo" HorizontalAlignment="Left" Height="199" Margin="10,65,0,0" VerticalAlignment="Top" Width="404" Source="/img/camera-viewfinder-png-6-removebg-preview.png" Stretch="Fill"/>
+        <Image x:Name="imgVideo" HorizontalAlignment="Left" Height="199" Margin="110,65,0,0" VerticalAlignment="Top" Width="300" Source="/img/camera-viewfinder-png-6-removebg-preview.png" Stretch="Fill"/>
         <Image HorizontalAlignment="Left" Height="100" Margin="79,269,0,0" VerticalAlignment="Top" Width="100" Source="/img/bien.jpg"/>
         <Image HorizontalAlignment="Left" Height="100" Margin="225,269,0,0" VerticalAlignment="Top" Width="84" Source="/img/mal.jpg"/>
         <Label Content="Satisfecho" HorizontalAlignment="Left" Margin="77,380,0,0" VerticalAlignment="Top" FontFamily="Lucida Console" Foreground="#0B0B0D" FontWeight="Bold"/>
